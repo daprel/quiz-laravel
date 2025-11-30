@@ -20,58 +20,54 @@
         <!-- Table Section -->
         <div class="overflow-x-auto rounded-lg shadow">
             <table class="w-full text-left border-collapse">
-                <thead class="bg-green-200">
-                    <tr>
-                        <th class="px-4 py-3 font-semibold">Product Code</th>
-                        <th class="px-4 py-3 font-semibold">Brand</th>
-                        <th class="px-4 py-3 font-semibold">Size</th>
-                        <th class="px-4 py-3 font-semibold">Stock Quantity</th>
-                    </tr>
-                </thead>
+                <table border="1" cellpadding="8" cellspacing="0" width="100%">
+                    <thead style="background: #f0f0f0;">
+                        <tr>
+                            <th>SKU</th>
+                            <th>Nama</th>
+                            <th>Stok</th>
+                            <th>Deskripsi</th>
+                            <th style="width: 150px; text-align:center;">Actions</th>
+                        </tr>
+                    </thead>
 
-                <tbody id="inventoryTable">
-                    <tr class="odd:bg-gray-50 hover:bg-gray-100">
-                        <td class="px-4 py-3">C0500</td>
-                        <td class="px-4 py-3">Coca Cola</td>
-                        <td class="px-4 py-3">500ml</td>
-                        <td class="px-4 py-3">120</td>
-                    </tr>
+                    <tbody>
+                        @forelse($products as $p)
+                            <tr>
+                                <td>{{ $p->sku }}</td>
+                                <td>{{ $p->name }}</td>
+                                <td>{{ $p->stock }}</td>
+                                <td>{{ $p->description }}</td>
 
-                    <tr class="odd:bg-gray-50 hover:bg-gray-100">
-                        <td class="px-4 py-3">C0250</td>
-                        <td class="px-4 py-3">Coca Cola</td>
-                        <td class="px-4 py-3">250ml</td>
-                        <td class="px-4 py-3">120</td>
-                    </tr>
+                                <td style="text-align:center;">
 
-                    <tr class="odd:bg-gray-50 hover:bg-gray-100">
-                        <td class="px-4 py-3">S0500</td>
-                        <td class="px-4 py-3">Sprite</td>
-                        <td class="px-4 py-3">500ml</td>
-                        <td class="px-4 py-3">80</td>
-                    </tr>
+                                    {{-- tombol edit --}}
+                                    <a href="{{ route('products.edit', $p->id) }}"
+                                        style="padding: 5px 10px; background: #FFC107; color: black; text-decoration:none; border-radius:4px;">
+                                        Edit
+                                    </a>
 
-                    <tr class="odd:bg-gray-50 hover:bg-gray-100">
-                        <td class="px-4 py-3">S0250</td>
-                        <td class="px-4 py-3">Sprite</td>
-                        <td class="px-4 py-3">250ml</td>
-                        <td class="px-4 py-3">45</td>
-                    </tr>
+                                    {{-- tombol delete --}}
+                                    <form action="{{ route('products.destroy', $p->id) }}" method="POST"
+                                        style="display:inline-block;"
+                                        onsubmit="return confirm('Yakin ingin menghapus produk ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            style="padding: 5px 10px; background: #DC3545; color: white; border:none; border-radius:4px;">
+                                            Delete
+                                        </button>
+                                    </form>
 
-                    <tr class="odd:bg-gray-50 hover:bg-gray-100">
-                        <td class="px-4 py-3">F0500</td>
-                        <td class="px-4 py-3">Fanta</td>
-                        <td class="px-4 py-3">500ml</td>
-                        <td class="px-4 py-3">80</td>
-                    </tr>
-
-                    <tr class="odd:bg-gray-50 hover:bg-gray-100">
-                        <td class="px-4 py-3">F0250</td>
-                        <td class="px-4 py-3">Fanta</td>
-                        <td class="px-4 py-3">250ml</td>
-                        <td class="px-4 py-3">80</td>
-                    </tr>
-                </tbody>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" style="text-align:center;">Belum ada produk</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </table>
         </div>
 

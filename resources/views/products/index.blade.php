@@ -1,8 +1,7 @@
-@extends('layouts.app')
+<x-Layout>
+    <x-slot:title>{{ $title }}</x-slot:title>
+    <h3>Ini halaman layout</h3>
 
-@section('title', 'Daftar Produk')
-
-@section('content')
 <h1>Daftar Produk</h1>
 
 {{-- tombol tambah --}}
@@ -70,3 +69,6 @@
     </tbody>
 </table>
 @endsection
+
+
+</x-Layout>
