@@ -3,68 +3,72 @@
 @section('title', 'Edit Produk')
 
 @section('content')
-<h1>Edit Produk</h1>
 
-{{-- tampilkan error validasi --}}
-@if ($errors->any())
-    <div style="padding: 10px; background: #F8D7DA; color: #842029; border-left: 4px solid #DC3545; margin-bottom: 20px;">
-        <ul style="margin:0; padding-left:20px;">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+<div class="max-w-3xl mx-auto bg-white shadow-md p-6 rounded-lg">
 
-<form action="{{ route('products.update', $product->id) }}" method="POST">
-    @csrf
-    @method('PUT')
+    <h1 class="text-2xl font-bold mb-6">Edit Produk</h1>
 
-    <table cellpadding="5" cellspacing="0" width="100%" style="max-width:600px;">
-        <tr>
-            <td style="width:150px;"><strong>SKU</strong></td>
-            <td>
-                <input type="text" name="sku" value="{{ old('sku', $product->sku) }}"
-                       style="width:100%; padding:8px;">
-            </td>
-        </tr>
+    {{-- ERROR ALERT --}}
+    @if ($errors->any())
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded">
+            <ul class="list-disc ml-5">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-        <tr>
-            <td><strong>Nama Produk</strong></td>
-            <td>
-                <input type="text" name="name" value="{{ old('name', $product->name) }}"
-                       style="width:100%; padding:8px;">
-            </td>
-        </tr>
+    <form action="{{ route('products.update', $product->id) }}" method="POST" class="space-y-5">
+        @csrf
+        @method('PUT')
 
-        <tr>
-            <td><strong>Stok</strong></td>
-            <td>
-                <input type="number" name="stock" value="{{ old('stock', $product->stock) }}"
-                       style="width:100%; padding:8px;">
-            </td>
-        </tr>
+        {{-- SKU --}}
+        <div>
+            <label class="block font-semibold mb-1">SKU</label>
+            <input type="text" name="sku"
+                value="{{ old('sku', $product->sku) }}"
+                class="w-full border border-gray-300 p-2 rounded focus:ring focus:ring-blue-300">
+        </div>
 
-        <tr>
-            <td><strong>Deskripsi</strong></td>
-            <td>
-                <textarea name="description" rows="4"
-                          style="width:100%; padding:8px;">{{ old('description', $product->description) }}</textarea>
-            </td>
-        </tr>
-    </table>
+        {{-- Nama Produk --}}
+        <div>
+            <label class="block font-semibold mb-1">Nama Produk</label>
+            <input type="text" name="name"
+                value="{{ old('name', $product->name) }}"
+                class="w-full border border-gray-300 p-2 rounded focus:ring focus:ring-blue-300">
+        </div>
 
-    <br>
+        {{-- Stok --}}
+        <div>
+            <label class="block font-semibold mb-1">Stok</label>
+            <input type="number" name="stock"
+                value="{{ old('stock', $product->stock) }}"
+                class="w-full border border-gray-300 p-2 rounded focus:ring focus:ring-blue-300">
+        </div>
 
-    <button type="submit"
-        style="padding: 10px 20px; background: #FFC107; border:none; border-radius:4px; cursor:pointer;">
-        Update
-    </button>
+        {{-- Deskripsi --}}
+        <div>
+            <label class="block font-semibold mb-1">Deskripsi</label>
+            <textarea name="description" rows="4"
+                class="w-full border border-gray-300 p-2 rounded focus:ring focus:ring-blue-300">{{ old('description', $product->description) }}</textarea>
+        </div>
 
-    <a href="{{ route('products.index') }}"
-       style="padding: 10px 20px; background: #6C757D; color:white; text-decoration:none; border-radius:4px; margin-left:10px;">
-        Back
-    </a>
-</form>
+        {{-- Buttons --}}
+        <div class="flex gap-4 mt-6">
+            <button type="submit"
+                class="px-6 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition">
+                Update
+            </button>
+
+            <a href="{{ route('products.index') }}"
+                class="px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition">
+                Back
+            </a>
+        </div>
+
+    </form>
+
+</div>
 
 @endsection

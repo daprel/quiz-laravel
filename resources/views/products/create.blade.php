@@ -1,29 +1,71 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Tambah Produk</title>
-</head>
-<body>
+@extends('layouts.app')
 
-<h1>Tambah Produk</h1>
+@section('title', 'Tambah Produk')
 
-<form action="{{ route('products.store') }}" method="POST">
-    @csrf
+@section('content')
 
-    <label>SKU:</label><br>
-    <input type="text" name="sku"><br><br>
+    <div class="max-w-3xl mx-auto bg-white shadow-md p-6 rounded-lg">
 
-    <label>Nama Produk:</label><br>
-    <input type="text" name="name"><br><br>
+        <h1 class="text-2xl font-bold mb-6">Tambah Produk</h1>
 
-    <label>Stok:</label><br>
-    <input type="number" name="stock"><br><br>
+        {{-- ERROR ALERT --}}
+        @if ($errors->any())
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded">
+                <ul class="list-disc ml-5">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-    <label>Deskripsi (opsional):</label><br>
-    <textarea name="description"></textarea><br><br>
+        <form action="{{ route('products.store') }}" method="POST" class="space-y-5">
+            @csrf
 
-    <button type="submit">Simpan</button>
-</form>
+            {{-- SKU --}}
+            <div>
+                <label class="block font-semibold mb-1">SKU</label>
+                <input type="text" name="sku"
+                    class="w-full border border-gray-300 p-2 rounded focus:ring focus:ring-blue-300"
+                    placeholder="Contoh: WID-001">
+            </div>
 
-</body>
-</html>
+            {{-- Nama Produk --}}
+            <div>
+                <label class="block font-semibold mb-1">Nama Produk</label>
+                <input type="text" name="name"
+                    class="w-full border border-gray-300 p-2 rounded focus:ring focus:ring-blue-300"
+                    placeholder="Nama produk">
+            </div>
+
+            {{-- Stok --}}
+            <div>
+                <label class="block font-semibold mb-1">Stok</label>
+                <input type="number" name="stock"
+                    class="w-full border border-gray-300 p-2 rounded focus:ring focus:ring-blue-300" placeholder="0">
+            </div>
+
+            {{-- Deskripsi --}}
+            <div>
+                <label class="block font-semibold mb-1">Deskripsi (opsional)</label>
+                <textarea name="description" rows="4"
+                    class="w-full border border-gray-300 p-2 rounded focus:ring focus:ring-blue-300"
+                    placeholder="Tambahkan deskripsi jika perlu"></textarea>
+            </div>
+
+            {{-- Buttons --}}
+            <div class="flex gap-4 mt-6">
+                <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">
+                    Simpan
+                </button>
+
+                <a href="{{ route('products.index') }}"
+                    class="px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition">
+                    Back
+                </a>
+            </div>
+
+        </form>
+    </div>
+
+@endsection
