@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory;
-
-    // agar bisa mass-assign
     protected $fillable = [
         'sku',
         'name',
